@@ -1,0 +1,105 @@
+﻿@page "/room/{roomId}"
+@using Blazored.Toast.Services;
+@using PokerPlanning.Models;
+@using PokerPlanning.Services;
+<h3>PokerRoom</h3>
+
+@if (Loading)
+{
+    <i>Loading...</i>
+}
+
+@if (!Loading)
+{
+    <UserNameBarrier>
+        <Content>
+            @roomId
+            <br>
+            <dl>
+                @foreach (var player in room.Players)
+                {
+                    <dt>Name</dt>
+                    <dd>@player.UserName</dd>
+                }
+            </dl>
+        </Content>
+    </UserNameBarrier>
+}
+
+
+@code {
+    [Parameter] public string? roomId { get; set; }
+    [Inject] RoomService? roomService { get; set; }
+    [Inject] IToastService? toastService { get; set; }
+    [Inject] PlayerService? playerService { get; set; }
+
+
+    bool Loading = true;
+    Room room = new();
+    Player player = new();
+
+    protected override void OnInitialized()
+    {
+        LoadRoom();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        await LoadPlayer();
+        EnterRoom();
+
+        if (playerService is null)
+            return;
+
+        playerService.PlayerNameChanged += async (s, e) =>
+        {
+            await LoadPlayer();
+            EnterRoom();
+            StateHasChanged();
+        };
+    }
+
+    async Task LoadPlayer()
+    {
+        if (playerService is null)
+            return;
+        player = new Player()
+            {
+                UserName = await playerService.GetUserName()
+            };
+    }
+
+    void EnterRoom()
+    {
+        if (string.IsNullOrWhiteSpace(player.UserName))
+            return;
+        room.EnterRoom(player);
+    }
+
+    void LoadRoom()
+    {
+        if (string.IsNullOrWhiteSpace(roomId))
+        {
+            toastService?.ShowError("Room not found.");
+            return;
+        }
+        var id = new Guid(roomId);
+        var _room = roomService?.GetRoom(id);
+        if (_room is null)
+        {
+            toastService?.ShowError("Room not found.");
+            return;
+        }
+
+        room = _room;
+        Loading = false;
+
+        room.RoomChanged += async (s, e) =>
+        {
+            await this.InvokeAsync(StateHasChanged);
+        };
+    }
+}

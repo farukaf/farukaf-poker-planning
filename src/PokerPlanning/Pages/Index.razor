@@ -1,9 +1,58 @@
 ﻿@page "/"
+@using Blazored.Toast.Services;
+@using PokerPlanning.Services;
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Welcome</PageTitle>
 
-<h1>Hello, world!</h1>
+<h3>Poker Planning</h3>
 
-Welcome to your new app.
+<UserNameBarrier>
+    <Content>
+        <h1>Welcome @userName!</h1>
+        <br />
+        <button @onclick="createNewRoom">Create new room</button>
+    </Content>
+</UserNameBarrier>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code {
+    [Inject] NavigationManager? navigationManager { get; set; }
+    [Inject] RoomService? roomService { get; set; }
+    [Inject] IToastService? toastService { get; set; }
+    [Inject] PlayerService? playerService { get; set; }
+
+    string? userName = string.Empty;
+
+    void createNewRoom()
+    {
+        var roomId = roomService?.Create();
+        if (roomId is null)
+        {
+            toastService?.ShowError("Error while trying to create a room.");
+            return;
+        }
+
+        toastService?.ShowInfo("Room created.");
+        navigationManager?.NavigateTo("/room/" + roomId);
+    }
+
+    protected override void OnInitialized()
+    {
+        if (playerService is null)
+            return;
+        playerService.PlayerNameChanged += async (s, e) =>
+        {
+            userName = await playerService.GetUserName();
+            await this.InvokeAsync(StateHasChanged);
+        };
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+        if (playerService is null)
+            return;
+        userName = await playerService.GetUserName();
+        await this.InvokeAsync(StateHasChanged);
+    }
+}
