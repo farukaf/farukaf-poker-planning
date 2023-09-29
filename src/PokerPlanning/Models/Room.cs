@@ -10,6 +10,9 @@ namespace PokerPlanning.Models
             Id = Guid.NewGuid();
             CreateAt = DateTime.UtcNow;
         }
+
+        public string[] CardValues = new string[] { "0", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?", "∞", "☕" };
+
         public Guid Id { get; }
         public DateTime CreateAt { get; }
         public ConcurrentQueue<Player> Players { get; private set; }
@@ -17,12 +20,37 @@ namespace PokerPlanning.Models
 
         public EventHandler? RoomChanged { get; set; }
 
-        public void EnterRoom(Player player)
+        public bool CardsAreRevealed { get; set; } = false;
+
+        public Player EnterRoom(Player player)
         {
-            if (Players.Any(x => x == player))
-                return;
+            var _player = Players.FirstOrDefault(x => x.UserName == player.UserName);
+            if (_player is not null)
+                return _player;
+
             Players.Enqueue(player);
 
+            player.PlayerChanged += (sender, args) => RoomChanged?.Invoke(sender, new());
+
+            RoomChanged?.Invoke(this, new());
+            return player;
+        }
+
+        public bool CanShowCards => Players.Any(x => x.CardSelected);
+
+        public void ShowCards()
+        {
+            CardsAreRevealed = true;
+            RoomChanged?.Invoke(this, new());
+        }
+
+        public void NewGame()
+        {
+            CardsAreRevealed = false;
+            foreach (var player in Players)
+            {
+                player.Card = string.Empty;
+            }
             RoomChanged?.Invoke(this, new());
         }
     }

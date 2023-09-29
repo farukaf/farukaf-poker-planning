@@ -1,5 +1,6 @@
 ﻿@page "/room/{roomId}"
 @using Blazored.Toast.Services;
+@using PokerPlanning.Components
 @using PokerPlanning.Models;
 @using PokerPlanning.Services;
 <h3>PokerRoom</h3>
@@ -19,9 +20,44 @@
                 @foreach (var player in room.Players)
                 {
                     <dt>Name</dt>
-                    <dd>@player.UserName</dd>
+                    <dd>
+                        @player.UserName
+
+                        @if (player.CardSelected)
+                        {
+                            @*Thumbs up emoji*@
+                            <span>&#128077;</span>
+                        }
+                        @if (!player.CardSelected)
+                        {
+                            @*Thumbs down emoji*@
+                            <span>&#128078;</span>
+                        }
+                    </dd>
+
+
+                    @if (room.CardsAreRevealed)
+                    {
+                        <dd>@player.Card</dd>
+                    }
                 }
             </dl>
+
+            <br>
+
+                <CardGroup room="room" player="player" />
+
+            <br>
+
+            @if (room.CardsAreRevealed)
+            {
+                <button @onclick="room.NewGame">New Game</button>
+            }
+            @if (!room.CardsAreRevealed)
+            {
+                <button disabled="@(!room.CanShowCards)" @onclick="room.ShowCards">Show Cards</button>
+            }
+
         </Content>
     </UserNameBarrier>
 }
@@ -32,7 +68,6 @@
     [Inject] RoomService? roomService { get; set; }
     [Inject] IToastService? toastService { get; set; }
     [Inject] PlayerService? playerService { get; set; }
-
 
     bool Loading = true;
     Room room = new();
@@ -58,7 +93,7 @@
         {
             await LoadPlayer();
             EnterRoom();
-            StateHasChanged();
+            await this.InvokeAsync(StateHasChanged);
         };
     }
 
@@ -66,7 +101,7 @@
     {
         if (playerService is null)
             return;
-        player = new Player()
+        player = new()
             {
                 UserName = await playerService.GetUserName()
             };
@@ -76,7 +111,7 @@
     {
         if (string.IsNullOrWhiteSpace(player.UserName))
             return;
-        room.EnterRoom(player);
+        player = room.EnterRoom(player);
     }
 
     void LoadRoom()
