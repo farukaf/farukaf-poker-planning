@@ -1,4 +1,17 @@
-﻿.card {
+﻿.player-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin-top: -0.1rem;
+    text-align: center;
+    width: 100%;
+}
+
+.player-block {
+    width: max-content;
+}
+
+.card {
     outline: 1px solid var(--primary);
     display: inline-block;
     height: 8.5rem;
@@ -7,27 +20,22 @@
     padding: 0.4rem;
     color: var(--primary);
     cursor: pointer;
-    -webkit-transition: all 0.4s ease-in-out;
-    -moz-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     font-size: 2.4rem;
     position: relative;
     overflow: hidden;
-    margin: 1rem 0.4rem;
+    margin: 0.5rem 0.4rem;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     background: linear-gradient(135deg, var(--item-background) 0%, #000 100%);
 }
 
-    .card:hover {
-        opacity: 0.7;
-        transform: translate(0, -0.2rem);
-    }
 
     .card.active {
-        transform: translate(0, -1rem);
         background: radial-gradient(95% 103% at 40% 22%, #000 14%, #000 50%, var(--primary) 85%, var(--primary) 95%);
     }
 
@@ -57,6 +65,10 @@
         height: 4rem;
         width: 4rem;
     }
+
+    .player-name {
+        font-size: 1rem;
+    }
 }
 
 @media screen and (max-width: 530px) {
@@ -70,5 +82,9 @@
     .icon-background {
         height: 3rem;
         width: 3rem;
+    }
+
+    .player-name {
+        font-size: 0.7rem;
     }
 }

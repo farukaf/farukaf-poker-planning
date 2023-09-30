@@ -27,6 +27,29 @@ div.page-background {
     background-size: cover; /* Cover the entire body with the background image */
 }
 
+
+button {
+    text-align: center;
+    background-color: var(--primary);
+    color: var(--background);
+    border: none;
+    font-size: 1.2rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0.2rem;
+}
+
+    button:hover {
+        opacity: 0.7;
+    }
+
+    button:disabled {
+        opacity: 0.2;
+    }
+
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
 }

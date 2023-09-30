@@ -1,0 +1,8 @@
+﻿div.player-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    margin-top: 1rem;
+}

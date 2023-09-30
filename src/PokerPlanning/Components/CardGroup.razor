@@ -6,7 +6,7 @@
         @{
             foreach (var cardValue in room.CardValues)
             {
-                <Card Value="@cardValue" Active="@(cardValue == player.Card)" OnClick="() => CardClick(cardValue)" />
+                <Card Value="@cardValue" Active="@(cardValue == player.Card)" OnClick="() => CardClick(cardValue)" Disabled="room.CardsAreRevealed" />
             }
 
         }

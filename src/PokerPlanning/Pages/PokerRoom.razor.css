@@ -1,0 +1,56 @@
+﻿.card-group-position {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 35vh;
+}
+
+/*center a div horizontally in the page with the class name coffee-table */
+.coffee-table {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.coffee-table-content {
+    border: 1px solid var(--primary);
+    border-radius: 1rem;
+    padding: 1rem;
+    min-height: 6rem;
+    min-width: 6rem;
+    position: relative;
+    text-align: center;
+}
+
+    .coffee-table-content > b {
+        position: absolute;
+        bottom: 0.4rem;
+        margin: auto;
+        left: 0;
+        right: 0;
+        opacity: 0.6;
+    }
+
+svg {
+    height: 6rem;
+    width: 6rem;
+}
+
+
+    svg > path {
+        fill: var(--primary);
+    }
+
+@media screen and (max-width: 700px) {
+    .coffee-table-content { 
+        min-height: 4rem;
+        min-width: 4rem; 
+    }
+
+    svg {
+        height: 4rem;
+        width: 4rem;
+    }
+}
+ 

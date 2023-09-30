@@ -53,5 +53,16 @@ namespace PokerPlanning.Models
             }
             RoomChanged?.Invoke(this, new());
         }
+
+        public string GetAverage()
+        {
+            var values = Players.Select(x => x.Card)?
+                .Where(x => !string.IsNullOrEmpty(x) && x != "?");
+
+            if (!(values?.Any() ?? false))
+                return string.Empty;
+
+            return values.Average(Convert.ToInt32).ToString("#0.##");
+        }
     }
 }

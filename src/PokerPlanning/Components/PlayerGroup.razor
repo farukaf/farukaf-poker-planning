@@ -1,0 +1,17 @@
+﻿@using PokerPlanning.Models;
+
+<div class="player-group">
+    @foreach (var _player in Players ?? new List<Player>())
+    {
+        <PlayerCard Active="@_player.CardSelected"
+                    PlayerName="@_player.UserName"
+                    Value="@_player.Card"
+                    ShowValue="CardsAreRevealed" />
+    }
+</div>
+
+
+@code {
+    [Parameter] public IEnumerable<Player>? Players { get; set; }
+    [Parameter] public bool CardsAreRevealed { get; set; }
+}
