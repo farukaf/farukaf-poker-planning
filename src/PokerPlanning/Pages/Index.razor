@@ -1,38 +1,24 @@
-﻿@page "/"
-@using Blazored.Toast.Services;
+﻿@page "/" 
+@using PokerPlanning.Components
 @using PokerPlanning.Services;
 
 <PageTitle>Welcome</PageTitle>
 
-<UserNameBarrier>
+<UserNameBarrierDialog>
     <Content>
         <h1>Welcome @userName!</h1>
         <br />
-        <button @onclick="createNewRoom">Create new room</button>
+
+        <CreateRoomDialog />
+
     </Content>
-</UserNameBarrier>
+</UserNameBarrierDialog>
  
 @code {
-    [Inject] NavigationManager? navigationManager { get; set; }
-    [Inject] RoomService? roomService { get; set; }
-    [Inject] IToastService? toastService { get; set; }
     [Inject] PlayerService? playerService { get; set; }
 
     string? userName = string.Empty;
-
-    void createNewRoom()
-    {
-        var roomId = roomService?.Create();
-        if (roomId is null)
-        {
-            toastService?.ShowError("Error while trying to create a room.");
-            return;
-        }
-
-        toastService?.ShowInfo("Room created.");
-        navigationManager?.NavigateTo("/room/" + roomId);
-    }
-
+     
     protected override void OnInitialized()
     {
         if (playerService is null)

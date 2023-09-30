@@ -1,7 +1,9 @@
 :root {
     --primary: #702AF7;
+    --danger: #D30505;
     --background: #000;
     --item-background: #010314;
+    --input-background: #16141A;
     --default: #fafafa;
 }
 
@@ -27,7 +29,6 @@ div.page-background {
     background-size: cover; /* Cover the entire body with the background image */
 }
 
-
 button {
     text-align: center;
     background-color: var(--primary);
@@ -50,9 +51,35 @@ button {
         opacity: 0.2;
     }
 
-.valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
+    button:first-child {
+        margin-left: 0 !important;
+    }
+
+input,
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=number],
+input[type=tel],
+input[type=url],
+input[type=search] {
+    background: var(--input-background);
+    border-radius: 0.1rem 0.1rem 0 0;
+    border-bottom: 1px solid var(--default);
+    color: var(--default);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-size: 1.2rem;
+    padding: 0.6rem 0.6rem;
+    margin: 0.2rem;
+    outline: none;
 }
+
+
+    input:first-child {
+        margin-left: 0 !important;
+    }
 
 .invalid {
     outline: 1px solid red;
@@ -89,3 +116,8 @@ button {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+.danger {
+    color: var(--danger);
+}

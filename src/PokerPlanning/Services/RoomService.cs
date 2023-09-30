@@ -12,9 +12,12 @@ namespace PokerPlanning.Services
 
         public ConcurrentDictionary<Guid, Room> Rooms { get; set; }
 
-        public Guid Create()
+        public Guid Create(string[] cardValues)
         {
-            var room = new Room();
+            var room = new Room()
+            {
+                CardValues = cardValues
+            };
             Rooms.TryAdd(room.Id, room);
 
             return room.Id;
@@ -24,7 +27,7 @@ namespace PokerPlanning.Services
         {
             if (!Rooms.Any(x => x.Key == id))
                 return null;
-            
+
             return Rooms[id];
         }
     }

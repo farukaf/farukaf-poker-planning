@@ -10,13 +10,10 @@
 
 @if (!Loading)
 {
-    <UserNameBarrier>
-        <Content>
-
-            <PlayerGroup Players="@room.Players" CardsAreRevealed="@room.CardsAreRevealed" />
-
-            <br />
-
+    <UserNameBarrierDialog>
+        <Content> 
+            <PlayerGroup Players="@room.Players" CardsAreRevealed="@room.CardsAreRevealed" /> 
+            <br /> 
             <div class="coffee-table">
                 <div class="coffee-table-content">
                     @if (!room.CardsAreRevealed)
@@ -29,13 +26,12 @@
                     }
                     else
                     {
-                        <h2>@room.GetAverage()</h2>                        
+                        <h2>@room.GetAverage()</h2>
                         <br />
-                        <b >Average</b>
+                        <b>Average</b>
                     }
                 </div>
-            </div>
-
+            </div> 
             <div class="coffee-table">
                 @if (room.CardsAreRevealed)
                 {
@@ -49,10 +45,9 @@
                 <div class="card-group-position">
                     <CardGroup room="room" player="player" />
                 </div>
-            </div>
-
+            </div> 
         </Content>
-    </UserNameBarrier>
+    </UserNameBarrierDialog>
 }
 
 

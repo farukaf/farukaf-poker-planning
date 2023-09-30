@@ -9,9 +9,10 @@ namespace PokerPlanning.Models
             Players = new ConcurrentQueue<Player>();
             Id = Guid.NewGuid();
             CreateAt = DateTime.UtcNow;
+            CardValues = new string[] { "0", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?" }; 
         }
 
-        public string[] CardValues = new string[] { "0", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?" };
+        public string[] CardValues { get; set; } 
 
         public Guid Id { get; }
         public DateTime CreateAt { get; }
