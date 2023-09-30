@@ -1,28 +1,7 @@
-﻿.card {
-    display: inline-block;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    margin: 0.4rem;
-    cursor: pointer;
-    min-width: 3rem;
-    min-height: 4rem;
-    -webkit-transition: 0.5s ease-in-out;
-    -moz-transition: 0.5s ease-in-out;
-    -o-transition: 0.5s ease-in-out;
-    transition: 0.5s ease-in-out;
-}
-
-    .card.card-revealed {
-        opacity: 0.5;
-    }
-
-    .card.card-selected {
-        background-color: #ccc;
-        font-weight: bold;
-        transform: translate(0, -10px);
-    }
-
-
-.card-group {
-    padding: 1rem;
+﻿fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+    border: none;
 }

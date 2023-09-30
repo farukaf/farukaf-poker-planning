@@ -11,7 +11,7 @@ namespace PokerPlanning.Models
             CreateAt = DateTime.UtcNow;
         }
 
-        public string[] CardValues = new string[] { "0", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?", "∞", "☕" };
+        public string[] CardValues = new string[] { "0", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?" };
 
         public Guid Id { get; }
         public DateTime CreateAt { get; }

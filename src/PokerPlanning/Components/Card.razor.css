@@ -1,0 +1,48 @@
+﻿.card {
+    outline: 1px solid var(--primary);
+    display: inline-block;
+    height: 8.5rem;
+    width: 6rem !important;
+    border-radius: 0.5rem;
+    padding: 0.4rem;
+    color: var(--primary);
+    cursor: pointer;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    font-size: 2.4rem;
+    position: relative;
+    overflow: hidden;
+    margin: 1rem 0.4rem;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    background: linear-gradient(135deg, var(--item-background) 0%, #000 100%); 
+}
+
+    .card:hover {
+        outline: 2px solid var(--primary);
+        opacity: 0.8;
+    }
+
+    .card.active {
+        transform: translate(0, -1rem);
+        background: radial-gradient(95% 103% at 40% 22%, #000 14%, #000 50%, var(--primary) 85%, var(--primary) 95%);
+        /*
+        background: radial-gradient(95% 103% at 38% 22%, rgba(0, 0, 0, 0.00) 14%, rgba(0, 0, 0, 0.00) 50%, var(--primary) 85%, var(--primary) 95%);
+    */
+    }
+
+.icon-background {
+    height: 6rem;
+    width: 6rem;
+    position: absolute;
+    opacity: 0.5;
+    bottom: 0.3rem;
+    right: -1rem;
+}
+
+    .icon-background > svg > path {
+        fill: var(--primary);
+    }

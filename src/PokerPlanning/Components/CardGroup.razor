@@ -3,22 +3,13 @@
 @if (room is not null && player is not null)
 {
     <fieldset disabled=@room.CardsAreRevealed>
-        <div class="card-group">
-            @{
-                var defaultClass = "card ";
-                if (room.CardsAreRevealed)
-                    defaultClass += "card-revealed ";
-                foreach (var cardValue in room.CardValues)
-                {
-                    var cardClass = defaultClass;
-                    if (player.Card == cardValue)
-                        cardClass += "card-selected ";
-                    <button class="@cardClass" @onclick="() =>{ player.Card = cardValue;}">
-                        @cardValue
-                    </button>
-                }
+        @{
+            foreach (var cardValue in room.CardValues)
+            {
+                <Card Value="@cardValue" Active="@(cardValue == player.Card)" OnClick="() => CardClick(cardValue)" />
             }
-        </div>
+
+        }
     </fieldset>
 }
 
@@ -27,5 +18,11 @@
     [Parameter] public Room? room { get; set; }
     [Parameter] public Player? player { get; set; }
 
+    void CardClick(string cardValue)
+    {
+        if (player is null)
+            return;
 
+        player.Card = cardValue;
+    }
 }
