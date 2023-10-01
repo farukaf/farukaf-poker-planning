@@ -11,7 +11,7 @@ COPY ["src/PokerPlanning/PokerPlanning.csproj", "PokerPlanning/"]
 
 RUN dotnet restore "PokerPlanning/PokerPlanning.csproj"
 COPY . .
-WORKDIR "/src/PokerPlanning"
+WORKDIR "src/PokerPlanning"
 RUN dotnet build "PokerPlanning.csproj" -c Release -o /app/build
 
 FROM build AS publish
