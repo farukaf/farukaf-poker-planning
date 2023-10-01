@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and publish Docker image
         run: |
-          docker build -t farukaf/poker-planning:$VERSION -f src/PokerPlanning/Dockerfile .
+          docker build -t farukaf/poker-planning:$VERSION .
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push farukaf/poker-planning:$VERSION 
         env:
