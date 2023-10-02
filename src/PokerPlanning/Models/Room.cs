@@ -1,4 +1,6 @@
-﻿using System.Collections.Concurrent;
+﻿using PokerPlanning.Extensions;
+using System.Collections.Concurrent;
+using System.Text.RegularExpressions;
 
 namespace PokerPlanning.Models
 {
@@ -9,10 +11,10 @@ namespace PokerPlanning.Models
             Players = new ConcurrentQueue<Player>();
             Id = Guid.NewGuid();
             CreateAt = DateTime.UtcNow;
-            CardValues = new string[] { "0", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?" }; 
+            CardValues = new string[] { "0", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?" };
         }
 
-        public string[] CardValues { get; set; } 
+        public string[] CardValues { get; set; }
 
         public Guid Id { get; }
         public DateTime CreateAt { get; }
@@ -57,8 +59,9 @@ namespace PokerPlanning.Models
 
         public string GetAverage()
         {
-            var values = Players.Select(x => x.Card)?
-                .Where(x => !string.IsNullOrEmpty(x) && x != "?");
+            var values = Players.Select(x => x.Card?.ToDigitsOnly())?
+                .Where(x => !string.IsNullOrEmpty(x))
+                .Select(x => Convert.ToInt32(x));
 
             if (!(values?.Any() ?? false))
                 return string.Empty;
