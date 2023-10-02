@@ -12,7 +12,7 @@ No aditional dependencies are necessary.
 
 ## To-Do List
 
-- [ ] CI/CD uploading to Docker Hub Repository.
+- [x] CI/CD uploading to Docker Hub Repository.
 - [ ] Create a "how to" from the public docker.
 - [ ] Build *Janitor* to clean and close abandoned rooms. 
 - [ ] Tests?
