@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokerPlanning", "PokerPlanning\PokerPlanning.csproj", "{DDE5BE91-6F39-4BCF-86E6-2BA05375B1CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerPlanning.Test", "PokerPlanning.Test\PokerPlanning.Test.csproj", "{B69D451B-1C32-4199-BC80-2E0D9699F8F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DDE5BE91-6F39-4BCF-86E6-2BA05375B1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDE5BE91-6F39-4BCF-86E6-2BA05375B1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDE5BE91-6F39-4BCF-86E6-2BA05375B1CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B69D451B-1C32-4199-BC80-2E0D9699F8F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B69D451B-1C32-4199-BC80-2E0D9699F8F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B69D451B-1C32-4199-BC80-2E0D9699F8F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B69D451B-1C32-4199-BC80-2E0D9699F8F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
