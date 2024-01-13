@@ -32,9 +32,9 @@
 </CustomDialog>
 
 @code {
-    [Inject] IRoomService? roomService { get; set; }
-    [Inject] IToastService? toastService { get; set; }
-    [Inject] NavigationManager? navigationManager { get; set; }
+    [Inject] IRoomService roomService { get; set; } = default!;
+    [Inject] IToastService toastService { get; set; } = default!;
+    [Inject] NavigationManager navigationManager { get; set; } = default!;
     string dialogId = "createRoomDialog";
 
     AddCardForm addCardForm = new();
@@ -83,7 +83,7 @@
         await InvokeAsync(StateHasChanged);
     }
 
-    async void ConfirmClick()
+    void ConfirmClick()
     {
         if (!CardValues.Any())
             return;
