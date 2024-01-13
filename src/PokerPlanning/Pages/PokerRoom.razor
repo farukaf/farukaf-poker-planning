@@ -11,9 +11,9 @@
 @if (!Loading)
 {
     <UserNameBarrierDialog>
-        <Content> 
-            <PlayerGroup Players="@room.Players" CardsAreRevealed="@room.CardsAreRevealed" /> 
-            <br /> 
+        <Content>
+            <PlayerGroup Players="@room.Players" CardsAreRevealed="@room.CardsAreRevealed" />
+            <br />
             <div class="coffee-table">
                 <div class="coffee-table-content">
                     @if (!room.CardsAreRevealed)
@@ -31,21 +31,25 @@
                         <b>Average</b>
                     }
                 </div>
-            </div> 
+            </div>
             <div class="coffee-table">
                 @if (room.CardsAreRevealed)
                 {
-                    <button @onclick="room.NewGame">New Game</button>
+                    <CustomButton OnClick="room.NewGame">
+                        New Game
+                    </CustomButton>
                 }
                 @if (!room.CardsAreRevealed)
                 {
-                    <button disabled="@(!room.CanShowCards)" @onclick="room.ShowCards">Show Cards</button>
+                    <CustomButton OnClick="room.ShowCards" Disabled="@(!room.CanShowCards)">
+                        Show Cards
+                    </CustomButton>
                 }
 
-                <div class="card-group-position">
-                    <CardGroup room="room" player="player" />
-                </div>
-            </div> 
+            </div>
+            <div class="card-group-position">
+                <CardGroup room="room" player="player" />
+            </div>
         </Content>
     </UserNameBarrierDialog>
 }
