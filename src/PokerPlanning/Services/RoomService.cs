@@ -12,6 +12,11 @@ namespace PokerPlanning.Services
 
         public ConcurrentDictionary<Guid, Room> Rooms { get; set; }
 
+        public Task<int> CleanRooms()
+        {
+            throw new NotImplementedException();
+        }
+
         public Guid Create(string[] cardValues)
         {
             var room = new Room()

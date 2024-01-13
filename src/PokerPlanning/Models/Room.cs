@@ -11,6 +11,7 @@ namespace PokerPlanning.Models
             Players = new ConcurrentQueue<Player>();
             Id = Guid.NewGuid();
             CreateAt = DateTime.UtcNow;
+            UpdateAt = DateTime.UtcNow;
             CardValues = new string[] { "0", "1", "2", "3", "5", "8", "13", "20", "40", "100", "?" };
         }
 
@@ -18,6 +19,7 @@ namespace PokerPlanning.Models
 
         public Guid Id { get; }
         public DateTime CreateAt { get; }
+        public DateTime UpdateAt { get; private set; }
         public ConcurrentQueue<Player> Players { get; private set; }
 
 
@@ -27,6 +29,7 @@ namespace PokerPlanning.Models
 
         public Player EnterRoom(Player player)
         {
+            UpdateAt = DateTime.UtcNow;
             var _player = Players.FirstOrDefault(x => x.UserName == player.UserName);
             if (_player is not null)
                 return _player;
@@ -45,6 +48,7 @@ namespace PokerPlanning.Models
         {
             CardsAreRevealed = true;
             RoomChanged?.Invoke(this, new());
+            UpdateAt = DateTime.UtcNow;
         }
 
         public void NewGame()
@@ -55,6 +59,7 @@ namespace PokerPlanning.Models
                 player.Card = string.Empty;
             }
             RoomChanged?.Invoke(this, new());
+            UpdateAt = DateTime.UtcNow;
         }
 
         public string GetAverage()
