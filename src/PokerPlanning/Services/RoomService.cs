@@ -1,39 +1,44 @@
 ﻿using PokerPlanning.Models;
 using System.Collections.Concurrent;
 
-namespace PokerPlanning.Services
+namespace PokerPlanning.Services;
+
+public sealed class RoomService : IRoomService
 {
-    public sealed class RoomService : IRoomService
+    public RoomService()
     {
-        public RoomService()
+        Rooms = new ConcurrentDictionary<Guid, Room>();
+    }
+
+    public ConcurrentDictionary<Guid, Room> Rooms { get; set; }
+
+    public Task<int> CleanRooms(TimeSpan interval)
+    {
+        var dirtyRooms = Rooms.Where(x => x.Value.UpdateAt.Add(interval) < DateTime.UtcNow);
+        foreach (var dirtyRoom in dirtyRooms)
         {
-            Rooms = new ConcurrentDictionary<Guid, Room>();
+            Rooms.TryRemove(dirtyRoom.Key, out _);
         }
 
-        public ConcurrentDictionary<Guid, Room> Rooms { get; set; }
+        return Task.FromResult(dirtyRooms.Count());
+    }
 
-        public Task<int> CleanRooms()
+    public Guid Create(string[] cardValues)
+    {
+        var room = new Room()
         {
-            throw new NotImplementedException();
-        }
+            CardValues = cardValues
+        };
+        Rooms.TryAdd(room.Id, room);
 
-        public Guid Create(string[] cardValues)
-        {
-            var room = new Room()
-            {
-                CardValues = cardValues
-            };
-            Rooms.TryAdd(room.Id, room);
+        return room.Id;
+    }
 
-            return room.Id;
-        }
+    public Room? GetRoom(Guid id)
+    {
+        if (!Rooms.Any(x => x.Key == id))
+            return null;
 
-        public Room? GetRoom(Guid id)
-        {
-            if (!Rooms.Any(x => x.Key == id))
-                return null;
-
-            return Rooms[id];
-        }
+        return Rooms[id];
     }
 }

@@ -7,7 +7,7 @@ namespace PokerPlanning.Services
     {
         ConcurrentDictionary<Guid, Room> Rooms { get; set; }
 
-        Task<int> CleanRooms();
+        Task<int> CleanRooms(TimeSpan interval);
         Guid Create(string[] cardValues);
         Room? GetRoom(Guid id);
     }

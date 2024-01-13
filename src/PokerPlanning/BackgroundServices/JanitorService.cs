@@ -8,6 +8,7 @@ namespace PokerPlanning.BackgroundServices
         private readonly IRoomService _roomService;
         private readonly ILogger<JanitorService> _logger;
         private readonly TimeSpan _janitorInterval = TimeSpan.FromMinutes(1);
+        private readonly TimeSpan _maxRoomInterval = TimeSpan.FromMinutes(5);
         public JanitorService(
             IRoomService roomService,
             ILogger<JanitorService> logger)
@@ -24,7 +25,7 @@ namespace PokerPlanning.BackgroundServices
                 {
                     _logger.LogInformation("Janitor is cleaning...");
                     
-                    var cleanedRooms = await _roomService.CleanRooms();
+                    var cleanedRooms = await _roomService.CleanRooms(_maxRoomInterval);
                     _logger.LogInformation($"Janitor cleaned {cleanedRooms} rooms.");
                 }
                 catch (Exception ex)
