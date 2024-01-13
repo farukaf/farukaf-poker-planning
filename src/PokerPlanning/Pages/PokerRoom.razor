@@ -111,14 +111,14 @@
     {
         if (string.IsNullOrWhiteSpace(roomId))
         {
-            toastService?.ShowError("Room not found.");
+            toastService.ShowError("Room not found.");
             return;
         }
         var id = new Guid(roomId);
         var _room = roomService?.GetRoom(id);
         if (_room is null)
         {
-            toastService?.ShowError("Room not found.");
+            toastService.ShowError("Room not found.");
             return;
         }
 
