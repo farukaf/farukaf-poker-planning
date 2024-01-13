@@ -53,9 +53,9 @@
 
 @code {
     [Parameter] public string? roomId { get; set; }
-    [Inject] RoomService? roomService { get; set; }
+    [Inject] IRoomService? roomService { get; set; }
     [Inject] IToastService? toastService { get; set; }
-    [Inject] PlayerService? playerService { get; set; }
+    [Inject] IPlayerService? playerService { get; set; }
 
     bool Loading = true;
     Room room = new();

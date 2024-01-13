@@ -32,7 +32,7 @@
 </CustomDialog>
 
 @code {
-    [Inject] RoomService? roomService { get; set; }
+    [Inject] IRoomService? roomService { get; set; }
     [Inject] IToastService? toastService { get; set; }
     [Inject] NavigationManager? navigationManager { get; set; }
     string dialogId = "createRoomDialog";

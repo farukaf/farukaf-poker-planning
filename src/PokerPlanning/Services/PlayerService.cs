@@ -2,7 +2,7 @@
 
 namespace PokerPlanning.Services
 {
-    public class PlayerService
+    public class PlayerService : IPlayerService
     {
         public PlayerService(ILocalStorageService localStorage)
         {

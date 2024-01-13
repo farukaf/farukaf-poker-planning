@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 
 namespace PokerPlanning.Services
 {
-    public class RoomService
+    public sealed class RoomService : IRoomService
     {
         public RoomService()
         {

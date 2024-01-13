@@ -10,8 +10,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddBlazoredToast();
 
-builder.Services.AddSingleton<RoomService>();
-builder.Services.AddScoped<PlayerService>();
+builder.Services.AddSingleton<IRoomService, RoomService>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
 
 var app = builder.Build();
 
