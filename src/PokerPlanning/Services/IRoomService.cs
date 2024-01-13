@@ -5,9 +5,9 @@ namespace PokerPlanning.Services
 {
     public interface IRoomService
     {
-        ConcurrentDictionary<Guid, Room> Rooms { get; set; }
+        ConcurrentDictionary<Guid, Room> Rooms { get; }
 
-        Task<int> CleanRooms(TimeSpan interval);
+        Task<int> CleanRooms(DateTime olderThan);
         Guid Create(string[] cardValues);
         Room? GetRoom(Guid id);
     }

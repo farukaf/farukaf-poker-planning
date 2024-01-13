@@ -19,7 +19,9 @@ namespace PokerPlanning.Models
 
         public Guid Id { get; }
         public DateTime CreateAt { get; }
-        public DateTime UpdateAt { get; private set; }
+        //Disclaimer the set of this prop is public when should be internal
+        //TODO: Create a lib layer so only the tests can access this internal set
+        public DateTime UpdateAt { get; set; }
         public ConcurrentQueue<Player> Players { get; private set; }
 
 

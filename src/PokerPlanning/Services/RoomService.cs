@@ -12,15 +12,15 @@ public sealed class RoomService : IRoomService
 
     public ConcurrentDictionary<Guid, Room> Rooms { get; set; }
 
-    public Task<int> CleanRooms(TimeSpan interval)
+    public Task<int> CleanRooms(DateTime olderThan)
     {
-        var dirtyRooms = Rooms.Where(x => x.Value.UpdateAt.Add(interval) < DateTime.UtcNow);
+        var count = 0;
+        var dirtyRooms = Rooms.Where(x => x.Value.UpdateAt < olderThan);
         foreach (var dirtyRoom in dirtyRooms)
-        {
-            Rooms.TryRemove(dirtyRoom.Key, out _);
-        }
+            if (Rooms.TryRemove(dirtyRoom.Key, out _))
+                count++;
 
-        return Task.FromResult(dirtyRooms.Count());
+        return Task.FromResult(count);
     }
 
     public Guid Create(string[] cardValues)

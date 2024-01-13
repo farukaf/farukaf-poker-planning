@@ -7,8 +7,8 @@ namespace PokerPlanning.BackgroundServices
     {
         private readonly IRoomService _roomService;
         private readonly ILogger<JanitorService> _logger;
-        private readonly TimeSpan _janitorInterval = TimeSpan.FromMinutes(1);
-        private readonly TimeSpan _maxRoomInterval = TimeSpan.FromMinutes(5);
+        private readonly TimeSpan _janitorInterval = TimeSpan.FromHours(1);
+        private readonly TimeSpan _maxRoomInterval = TimeSpan.FromHours(12);
         public JanitorService(
             IRoomService roomService,
             ILogger<JanitorService> logger)
@@ -23,10 +23,11 @@ namespace PokerPlanning.BackgroundServices
             {
                 try
                 {
-                    _logger.LogInformation("Janitor is cleaning...");
+                    _logger.LogInformation($"Janitor is cleaning {_roomService.Rooms.Count} rooms...");
                     
-                    var cleanedRooms = await _roomService.CleanRooms(_maxRoomInterval);
-                    _logger.LogInformation($"Janitor cleaned {cleanedRooms} rooms.");
+                    var dtFilter = DateTime.UtcNow.Add(_maxRoomInterval);
+                    var cleanedRooms = await _roomService.CleanRooms(dtFilter);
+                    _logger.LogInformation($"Janitor closed {cleanedRooms} rooms.");
                 }
                 catch (Exception ex)
                 {
