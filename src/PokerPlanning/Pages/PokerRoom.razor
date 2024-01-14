@@ -11,9 +11,10 @@
 @if (!Loading)
 {
     <UserNameBarrierDialog>
-        <Content> 
-            <PlayerGroup Players="@room.Players" CardsAreRevealed="@room.CardsAreRevealed" /> 
-            <br /> 
+        <Content>
+            <CopyUriButton />
+            <PlayerGroup Players="@room.Players" CardsAreRevealed="@room.CardsAreRevealed" />
+            <br />
             <div class="coffee-table">
                 <div class="coffee-table-content">
                     @if (!room.CardsAreRevealed)
@@ -31,21 +32,25 @@
                         <b>Average</b>
                     }
                 </div>
-            </div> 
+            </div>
             <div class="coffee-table">
                 @if (room.CardsAreRevealed)
                 {
-                    <button @onclick="room.NewGame">New Game</button>
+                    <CustomButton OnClick="room.NewGame">
+                        New Game
+                    </CustomButton>
                 }
                 @if (!room.CardsAreRevealed)
                 {
-                    <button disabled="@(!room.CanShowCards)" @onclick="room.ShowCards">Show Cards</button>
+                    <CustomButton OnClick="room.ShowCards" Disabled="@(!room.CanShowCards)">
+                        Show Cards
+                    </CustomButton>
                 }
 
-                <div class="card-group-position">
-                    <CardGroup room="room" player="player" />
-                </div>
-            </div> 
+            </div>
+            <div class="card-group-position">
+                <CardGroup room="room" player="player" />
+            </div>
         </Content>
     </UserNameBarrierDialog>
 }
@@ -53,9 +58,9 @@
 
 @code {
     [Parameter] public string? roomId { get; set; }
-    [Inject] RoomService? roomService { get; set; }
-    [Inject] IToastService? toastService { get; set; }
-    [Inject] PlayerService? playerService { get; set; }
+    [Inject] IRoomService roomService { get; set; } = default!;
+    [Inject] IToastService toastService { get; set; } = default!;
+    [Inject] IPlayerService playerService { get; set; } = default!;
 
     bool Loading = true;
     Room room = new();
@@ -106,14 +111,14 @@
     {
         if (string.IsNullOrWhiteSpace(roomId))
         {
-            toastService?.ShowError("Room not found.");
+            toastService.ShowError("Room not found.");
             return;
         }
         var id = new Guid(roomId);
         var _room = roomService?.GetRoom(id);
         if (_room is null)
         {
-            toastService?.ShowError("Room not found.");
+            toastService.ShowError("Room not found.");
             return;
         }
 

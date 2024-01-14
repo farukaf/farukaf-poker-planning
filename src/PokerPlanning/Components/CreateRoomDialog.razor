@@ -32,9 +32,9 @@
 </CustomDialog>
 
 @code {
-    [Inject] RoomService? roomService { get; set; }
-    [Inject] IToastService? toastService { get; set; }
-    [Inject] NavigationManager? navigationManager { get; set; }
+    [Inject] IRoomService roomService { get; set; } = default!;
+    [Inject] IToastService toastService { get; set; } = default!;
+    [Inject] NavigationManager navigationManager { get; set; } = default!;
     string dialogId = "createRoomDialog";
 
     AddCardForm addCardForm = new();
@@ -83,7 +83,7 @@
         await InvokeAsync(StateHasChanged);
     }
 
-    async void ConfirmClick()
+    void ConfirmClick()
     {
         if (!CardValues.Any())
             return;
@@ -91,11 +91,11 @@
         var roomId = roomService?.Create(CardValues.ToArray());
         if (roomId is null)
         {
-            toastService?.ShowError("Error while trying to create a room.");
+            toastService.ShowError("Error while trying to create a room.");
             return;
         }
 
-        toastService?.ShowInfo("Room created.");
-        navigationManager?.NavigateTo("/room/" + roomId);
+        toastService.ShowSuccess("Room created.");
+        navigationManager.NavigateTo("/room/" + roomId);
     }
 }
