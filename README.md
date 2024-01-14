@@ -14,11 +14,11 @@ No aditional dependencies are necessary.
 
 - [x] CI/CD uploading to Docker Hub Repository.
 - [ ] Create a "how to" from the public docker.
-- [ ] Build *Janitor* to clean and close abandoned rooms.
+- [x] Build *Janitor* to clean and close abandoned rooms.
 - [ ] Log things that are happening
 - [ ] Tests?
   - [ ] Unitary
-  - [ ] Stress Test (discover out limits)
+  - [ ] Stress Test (discover our limits)
 - [ ] Support horizontal scalling with backlane (if so, must be optional)?
 - [ ] Custom styling
 - [ ] Internationalization/Localization 
