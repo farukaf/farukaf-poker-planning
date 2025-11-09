@@ -8,7 +8,7 @@ No aditional dependencies are necessary.
 
 ## Public docker images
 
-[Docker Hub](https://hub.docker.com/repository/docker/farukaf/poker-planning/general)
+[Docker Hub](https://hub.docker.com/r/farukaf/poker-planning/tags)
 
 ## To-Do List
 
