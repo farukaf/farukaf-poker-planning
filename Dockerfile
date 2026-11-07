@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0.402-alpine3.24@sha256:230c3fbae0ceedc70bca04eed2bfb5694e8b248cadbb81010f41b7a993601f55 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0.403-alpine3.24@sha256:5562fd626eec39f6f53218f9b7d7856ab7195d51d846568304fbe85071a3b6e6 AS build
 WORKDIR /src
 COPY ["src/Directory.Build.props", "src/Directory.Build.props"]
 COPY ["src/PokerPlanning/", "src/PokerPlanning/"]
@@ -6,7 +6,7 @@ RUN dotnet restore "src/PokerPlanning/PokerPlanning.csproj" --locked-mode
 COPY . .
 RUN dotnet publish "src/PokerPlanning/PokerPlanning.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0.13-alpine3.24@sha256:819bd3649d8bf53f35527c68d62e17b348ef6f24ae73073f497f00a878348062 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0.14-alpine3.24@sha256:486297ae006e95ee2ee3112a2c03e3d26e41fbbc64b7a29e28e7a18cc36b12bb AS final
 WORKDIR /app
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s \
