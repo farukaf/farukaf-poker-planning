@@ -6,7 +6,7 @@ RUN dotnet restore "src/PokerPlanning/PokerPlanning.csproj" --locked-mode
 COPY . .
 RUN dotnet publish "src/PokerPlanning/PokerPlanning.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0.13-alpine3.24@sha256:819bd3649d8bf53f35527c68d62e17b348ef6f24ae73073f497f00a878348062 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0.14-alpine3.24@sha256:486297ae006e95ee2ee3112a2c03e3d26e41fbbc64b7a29e28e7a18cc36b12bb AS final
 WORKDIR /app
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s \
